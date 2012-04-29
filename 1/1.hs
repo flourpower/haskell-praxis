@@ -1,7 +1,4 @@
---we want to make an rpn
 import Data.Char
---import Control.Monad.State
---let's deal with using the calculator in the state monad and then coming back to everything else
 
 type Stack a = [a]
 
@@ -18,8 +15,30 @@ r7 = do
     then push a
     else return ()
 
+--we want to associate with each thing that could come in as a valiud input a stateful computation.
+
+plus = do
+  a <- pop
+  b <- pop
+  return (a+b)
+
+minus = do
+  a <- pop
+  b <- pop
+  return (a-b)
+
+times = do
+  a <- pop
+  b <- pop
+  return (a * b)
+
+divide = do
+  a <- pop
+  b <- pop
+  return ( a / b)
 
 
+--I can't import Control.Monad.State because of some silly ambiguity issue?
 instance Monad (State s) where  
     return x = State $ \s -> (x,s)  
     (State h) >>= f = State $ \s -> let (a, newState) = h s  
