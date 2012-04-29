@@ -4,20 +4,18 @@ import MyState
 import Stack
 import Util
 
---now we want a process function that processes these lists of strings
---we want an action that takes a list of strings then runs react on each of them
---let's try doing it one string at a time
+--now we have a process function
+--we can take a list of strings from input, run process, output result of computation, and pass new state back into the getline action
 
 react :: [Char] -> State [Double] Double
 react string
   | isNum string = reactNum string
   | otherwise    = reactOp string
 
-
-process strings = do
-  sequence $ map react strings
-
---reactNum :: (Fractional a) => String -> State (Stack a) a
+process :: [String] -> State [Double] Double
+process strings = execute actions
+  where actions = map react strings
+  
 reactNum :: String -> State [Double] Double
 reactNum string = State $ \stack -> (k,k:stack)
   where k = numify string
