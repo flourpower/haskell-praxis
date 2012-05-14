@@ -11,3 +11,6 @@ help n xs
     where midlen = floor $ (genericLength xs) / 2
           mid = fst $ xs !! midlen
           (left,right) = splitAt midlen xs
+
+
+
